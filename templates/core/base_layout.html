@@ -1,0 +1,124 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Dashboard | Skote</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+
+    <!-- Bootstrap Css -->
+    <link href="{% static 'css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{% static 'css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css" />
+
+    <!-- Font Face | ICONS -->
+    <style>
+        @charset "UTF-8";
+
+        @font-face {
+            font-family: "Material Design Icons";
+            src: url("{% static 'fonts/materialdesignicons-webfont.eot?v=5.8.55' %}");
+            src: url("{% static 'fonts/materialdesignicons-webfont.eot?#iefix&v=5.8.55' %}") format("embedded-opentype"),
+            url("{% static 'fonts/materialdesignicons-webfont.woff2?v=5.8.55' %}") format("woff2"),
+            url("{% static 'fonts/materialdesignicons-webfont.woff?v=5.8.55' %}") format("woff"),
+            url("{% static 'fonts/materialdesignicons-webfont.ttf?v=5.8.55' %}") format("truetype");
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: boxicons;
+            font-weight: 400;
+            font-style: normal;
+            src: url("{% static 'fonts/boxicons.eot' %}");
+            src: url("{% static 'fonts/boxicons.eot' %}") format("embedded-opentype"),
+            url("{% static 'fonts/boxicons.woff2' %}") format("woff2"),
+            url("{% static 'fonts/boxicons.woff' %}") format("woff"),
+            url("{% static 'fonts/boxicons.ttf' %}") format("truetype"),
+            url("{% static 'fonts/boxicons.svg?#boxicons' %}") format("svg");
+        }
+
+        @font-face {
+            font-family: "Font Awesome 5 Brands";
+            font-style: normal;
+            font-weight: 400;
+            font-display: block;
+            src: url('static "fonts/fa-brands-400.eot" %}');
+            src: url('static "fonts/fa-brands-400.eot?#iefix" %}') format("embedded-opentype"),
+                url('static "fonts/fa-brands-400.woff2" %}') format("woff2"),
+                url('static "fonts/fa-brands-400.woff" %}') format("woff"),
+                url('static "fonts/fa-brands-400.ttf" %}') format("truetype"),
+                url('static "fonts/fa-brands-400.svg#fontawesome" %}') format("svg");
+        }
+
+        @font-face {
+            font-family: "Font Awesome 5 Free";
+            font-style: normal;
+            font-weight: 400;
+            font-display: block;
+            src: url("{% static 'fonts/fa-regular-400.eot' %}");
+            src: url("{% static 'fonts/fa-regular-400.eot?#iefix' %}") format("embedded-opentype"),
+            url("{% static 'fonts/fa-regular-400.woff2' %}") format("woff2"),
+            url("{% static 'fonts/fa-regular-400.woff' %}") format("woff"),
+            url("{% static 'fonts/fa-regular-400.ttf' %}") format("truetype"),
+            url("{% static 'fonts/fa-regular-400.svg#fontawesome' %}") format("svg");
+        }
+
+        @font-face {
+            font-family: "Font Awesome 5 Free";
+            font-style: normal;
+            font-weight: 900;
+            font-display: block;
+            src: url("{% static 'fonts/fa-solid-900.eot' %}");
+            src: url("{% static 'fonts/fa-solid-900.eot?#iefix' %}") format("embedded-opentype"),
+            url("{% static 'fonts/fa-solid-900.woff2' %}") format("woff2"),
+            url("{% static 'fonts/fa-solid-900.woff' %}") format("woff"),
+            url("{% static 'fonts/fa-solid-900.ttf' %}") format("truetype"),
+            url("{% static 'fonts/fa-solid-900.svg#fontawesome' %}") format("svg");
+        }
+
+        @font-face {
+            font-family: dripicons-v2;
+            src: url("{% static 'fonts/dripicons-v2.eot' %}");
+            src: url("{% static 'fonts/dripicons-v2.eot?#iefix' %}") format("embedded-opentype"),
+            url("{% static 'fonts/dripicons-v2.woff' %}") format("woff"),
+            url("{% static 'fonts/dripicons-v2.ttf' %}") format("truetype"),
+            url("{% static 'fonts/dripicons-v2.svg#dripicons-v2' %}") format("svg");
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
+
+</head>
+
+{% block body %}
+<body>
+    {% block content %}{% endblock content %}
+    
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+    <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
+
+    <!-- apexcharts -->
+    <script src="{% static 'libs/apexcharts/apexcharts.min.js' %}"></script>
+
+    <!-- dashboard init -->
+    <script src="{% static 'js/pages/dashboard.init.js' %}"></script>
+
+    <!-- App js -->
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+{% endblock body %}
+
+</html>

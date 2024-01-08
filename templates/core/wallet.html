@@ -1,0 +1,602 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Wallet</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Crypto</a></li>
+                    <li class="breadcrumb-item active">Wallet</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-xl-4">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="d-flex">
+                    <div class="flex-shrink-0 me-4">
+                        <i class="mdi mdi-account-circle text-primary h1"></i>
+                    </div>
+
+                    <div class="flex-grow-1">
+                        <div class="text-muted">
+                            <h5>@{{ user.username }}</h5>
+                            <p class="mb-1">{{ user.email }}</p>
+                            <p class="mb-0">Id no: {{ user.id }}</p>
+                        </div>
+
+                    </div>
+
+                    <div class="dropdown ms-2">
+                        <a class="text-muted" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body border-top">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div>
+                            <p class="text-muted mb-2">Available Balance</p>
+                            <h5>$ {{ total_balance }}</h5>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-sm-end mt-4 mt-sm-0">
+                            <p class="text-muted mb-2">Since last month</p>
+                            <h5>+ $ 248.35 <span class="badge bg-success ms-1 align-bottom">+ 1.3 %</span></h5>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body border-top">
+                <p class="text-muted mb-4">In this month</p>
+                <div class="text-center">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div>
+                                <div class="font-size-24 text-primary mb-2">
+                                    <i class="bx bx-send"></i>
+                                </div>
+
+                                <p class="text-muted mb-2">Send</p>
+                                <h5>${{ total_sent_amount }}</h5>
+
+                                <div class="mt-3">
+                                    <a href="{% url 'core:crypto_send' %}" class="btn btn-primary btn-sm w-md">Send</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="mt-4 mt-sm-0">
+                                <div class="font-size-24 text-primary mb-2">
+                                    <i class="bx bx-import"></i>
+                                </div>
+
+                                <p class="text-muted mb-2">receive</p>
+                                <h5>$ {{ total_received_amount }}</h5>
+
+                                <div class="mt-3">
+                                    <a href="{% url 'core:crypto_receive' %}"
+                                        class="btn btn-primary btn-sm w-md">Receive</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="mt-4 mt-sm-0">
+                                <div class="font-size-24 text-primary mb-2">
+                                    <i class="bx bx-wallet"></i>
+                                </div>
+
+                                <p class="text-muted mb-2">Withdraw</p>
+                                <h5>$ 824.34</h5>
+
+                                <div class="mt-3">
+                                    <a href="javascript: void(0);" class="btn btn-primary btn-sm w-md">Withdraw</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-8">
+        <div class="row">
+            {% for object in object_list %}
+            <div class="col-sm-4">
+                <div class="card mini-stats-wid">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            {% if object.currency == 'btc' %}
+                            <div class="flex-shrink-0 me-3 align-self-center">
+                                <i class="mdi mdi-bitcoin h2 text-warning mb-0"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <p class="text-muted mb-2">Bitcoin Wallet</p>
+                                <h5 class="mb-0">{{ object.balance }} {{ object.currency.upper }} <span
+                                        class="font-size-14 text-muted">= $ 9148.00</span>
+                                </h5>
+                            </div>
+                            {% elif object.currency == 'eth' %}
+                            <div class="flex-shrink-0 me-3 align-self-center">
+                                <i class="mdi mdi-ethereum h2 text-primary mb-0"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <p class="text-muted mb-2">Ethereum Wallet</p>
+                                <h5 class="mb-0">{{ object.balance }} {{ object.currency.upper }} <span
+                                        class="font-size-14 text-muted">= $ 9148.00</span>
+                                </h5>
+                            </div>
+
+                            {% elif object.currency == 'ltc' %}
+                            <div class="flex-shrink-0 me-3 align-self-center">
+                                <i class="mdi mdi-litecoin h2 text-info mb-0"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <p class="text-muted mb-2">litecoin Wallet</p>
+                                <h5 class="mb-0">{{ object.balance }} {{ object.currency.upper }} <span
+                                        class="font-size-14 text-muted">= $ 9148.00</span>
+                                </h5>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <!-- <div class="col-sm-4">
+                <div class="card mini-stats-wid">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0 me-3 align-self-center">
+                                <i class="mdi mdi-ethereum h2 text-primary mb-0"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <p class="text-muted mb-2">Ethereum Wallet</p>
+                                <h5 class="mb-0">0.04121 ETH <span class="font-size-14 text-muted">= $ 8235.00</span>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card mini-stats-wid">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0 me-3 align-self-center">
+                                <i class="mdi mdi-litecoin h2 text-info mb-0"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <p class="text-muted mb-2">litecoin Wallet</p>
+                                <h5 class="mb-0">0.00356 BTC <span class="font-size-14 text-muted">= $ 4721.00</span>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- end row -->
+
+            <!-- row -->
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-3">Overview</h4>
+                    <div style="height: 30dvw;">
+                        <!-- TradingView Widget BEGIN -->
+                        <div class="tradingview-widget-container" style="height:100%;width:100%">
+                            <div class="tradingview-widget-container__widget"
+                                style="height:calc(100% - 32px);width:100%">
+                            </div>
+
+                            <script type="text/javascript"
+                                src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"
+                                async>
+                                    let _ = {
+                                        "autosize": true,
+                                        "symbol": "USD/FX_IDC:NGNUSD",
+                                        "interval": "D",
+                                        "timezone": "Etc/UTC",
+                                        "theme": "dark",
+                                        "style": "1",
+                                        "locale": "en",
+                                        "enable_publishing": false,
+                                        "allow_symbol_change": true,
+                                        "watchlist": [
+                                            "BITSTAMP:BTCUSD",
+                                            "BITSTAMP:ETHUSD",
+                                            "KUCOIN:LITHUSDT"
+                                        ],
+                                        "calendar": true,
+                                        "support_host": "https://www.tradingview.com"
+                                    };
+                                </script>
+                        </div>
+                        <!-- TradingView Widget END -->
+
+                        <!-- <div id="overview-chart" data-colors='["--bs-warning", "--bs-primary", "--bs-info"]'
+                        class="apex-charts" dir="ltr"></div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+<!-- Sent Transactions -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Sent Transaction Activities</h4>
+
+                <ul class="nav nav-tabs nav-tabs-custom"  role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" role="tab" href="#sent_all">All</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" role="tab" href="#sent_eth">ETH</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" role="tab" href="#sent_btc">BTC</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" role="tab" href="#sent_ltc">LTC</a>
+                    </li>
+                </ul>
+
+                <div class="mt-4 tab-content crypto-buy-sell-nav-content">
+
+                    <!-- All Transactions -->
+                    
+                    <div class="tab-pane active" id="sent_all" role="tabpanel">
+                        <div class="table-responsive">
+                            <table id="datatable" class="table table-hover dt-responsive nowrap"
+                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Ref No</th>
+                                        <th>Address</th>
+                                        <th>Currency</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for transaction in all_sent_transactions %}
+                                    <tr>
+                                        <td><a href="javascript: void(0);" class="text-body fw-bold">{{ transaction.transaction_ref }}</a></td>
+
+                                        <td>{{ transaction.to_address }} </td>
+                                        <td>{{ transaction.currency | upper }}</td>
+                                        <td>{{ transaction.amount }} {{ transaction.currency | upper }}</td>
+                                        <td>{{ transaction.created_at }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6"><a href="javascript: void(0);" class="text-body fw-bold">Nothing
+                                                to see here</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Sent ETH Transactions -->
+                    <div class="tab-pane" id="sent_eth" role="tabpanel">
+                        <div class="table-responsive">
+                            <table id="datatable" class="table table-hover dt-responsive nowrap"
+                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Ref No</th>
+                                        <th>Address</th>
+                                        <th>Currency</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for transaction in sent_eth_transactions %}
+                                    <tr>
+                                        <td><a href="javascript: void(0);" class="text-body fw-bold">{{ transaction.transaction_ref }}</a></td>
+
+                                        <td>{{ transaction.to_address }} </td>
+                                        <td>{{ transaction.currency | upper }}</td>
+                                        <td>{{ transaction.amount }} {{ transaction.currency | upper }}</td>
+                                        <td>{{ transaction.created_at }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6"><a href="javascript: void(0);" class="text-body fw-bold">Nothing
+                                                to see here</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Sent Btc Transactions -->
+                    <div class="tab-pane" id="sent_btc" role="tabpanel">
+                        <div class="table-responsive">
+                            <table id="datatable" class="table table-hover dt-responsive nowrap"
+                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Ref No</th>
+                                        <th>Address</th>
+                                        <th>Currency</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for transaction in sent_btc_transactions %}
+                                    <tr>
+                                        <td><a href="javascript: void(0);" class="text-body fw-bold">{{ transaction.transaction_ref }}</a></td>
+
+                                        <td>{{ transaction.to_address }} </td>
+                                        <td>{{ transaction.currency | upper }}</td>
+                                        <td>{{ transaction.amount }} {{ transaction.currency | upper }}</td>
+                                        <td>{{ transaction.created_at }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6"><a href="javascript: void(0);" class="text-body fw-bold">Nothing
+                                                to see here</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Sent LTC Transactions -->
+                    <div class="tab-pane" id="sent_ltc" role="tabpanel">
+                        <div class="table-responsive">
+                            <table id="datatable" class="table table-hover dt-responsive nowrap"
+                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Ref No</th>
+                                        <th>Address</th>
+                                        <th>Currency</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for transaction in sent_ltc_transactions %}
+                                    <tr>
+                                        <td><a href="javascript: void(0);" class="text-body fw-bold">{{ transaction.transaction_ref }}</a></td>
+
+                                        <td>{{ transaction.to_address }} </td>
+                                        <td>{{ transaction.currency | upper }}</td>
+                                        <td>{{ transaction.amount }} {{ transaction.currency | upper }}</td>
+                                        <td>{{ transaction.created_at }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6"><a href="javascript: void(0);" class="text-body fw-bold">Nothing
+                                                to see here</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ./Sent Transactions -->
+
+<!-- Received Transactions -->
+<div class="row mt-3">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Received Transaction Activities</h4>
+
+                <ul class="nav nav-tabs nav-tabs-custom"  role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" role="tab" href="#received_all">All</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" role="tab" href="#received_eth">ETH</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" role="tab" href="#received_btc">BTC</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" role="tab" href="#received_ltc">LTC</a>
+                    </li>
+                </ul>
+
+                <div class="mt-4 tab-content crypto-buy-sell-nav-content">
+
+                    <!-- All Transactions -->
+                    
+                    <div class="tab-pane active" id="received_all" role="tabpanel">
+                        <div class="table-responsive">
+                            <table id="datatable" class="table table-hover dt-responsive nowrap"
+                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Ref No</th>
+                                        <th>Address</th>
+                                        <th>Currency</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for transaction in all_received_transaction %}
+                                    <tr>
+                                        <td><a href="javascript: void(0);" class="text-body fw-bold">{{ transaction.transaction_ref }}</a></td>
+
+                                        <td>{{ transaction.from_address }} </td>
+                                        <td>{{ transaction.currency | upper }}</td>
+                                        <td>{{ transaction.amount }} {{ transaction.currency | upper }}</td>
+                                        <td>{{ transaction.created_at }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6"><a href="javascript: void(0);" class="text-body fw-bold">Nothing
+                                                to see here</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- received ETH Transactions -->
+                    <div class="tab-pane" id="received_eth" role="tabpanel">
+                        <div class="table-responsive">
+                            <table id="datatable" class="table table-hover dt-responsive nowrap"
+                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Ref No</th>
+                                        <th>Address</th>
+                                        <th>Currency</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for transaction in received_eth_transactions %}
+                                    <tr>
+                                        <td><a href="javascript: void(0);" class="text-body fw-bold">{{ transaction.transaction_ref }}</a></td>
+
+                                        <td>{{ transaction.from_address }} </td>
+                                        <td>{{ transaction.currency | upper }}</td>
+                                        <td>{{ transaction.amount }} {{ transaction.currency | upper }}</td>
+                                        <td>{{ transaction.created_at }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6"><a href="javascript: void(0);" class="text-body fw-bold">Nothing
+                                                to see here</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- received Btc Transactions -->
+                    <div class="tab-pane" id="received_btc" role="tabpanel">
+                        <div class="table-responsive">
+                            <table id="datatable" class="table table-hover dt-responsive nowrap"
+                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Ref No</th>
+                                        <th>Address</th>
+                                        <th>Currency</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for transaction in received_btc_transactions %}
+                                    <tr>
+                                        <td><a href="javascript: void(0);" class="text-body fw-bold">{{ transaction.transaction_ref }}</a></td>
+
+                                        <td>{{ transaction.from_address }} </td>
+                                        <td>{{ transaction.currency | upper }}</td>
+                                        <td>{{ transaction.amount }} {{ transaction.currency | upper }}</td>
+                                        <td>{{ transaction.created_at }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6"><a href="javascript: void(0);" class="text-body fw-bold">Nothing
+                                                to see here</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- received LTC Transactions -->
+                    <div class="tab-pane" id="received_ltc" role="tabpanel">
+                        <div class="table-responsive">
+                            <table id="datatable" class="table table-hover dt-responsive nowrap"
+                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Ref No</th>
+                                        <th>Address</th>
+                                        <th>Currency</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for transaction in received_ltc_transactions %}
+                                    <tr>
+                                        <td><a href="javascript: void(0);" class="text-body fw-bold">{{ transaction.transaction_ref }}</a></td>
+
+                                        <td>{{ transaction.from_address }} </td>
+                                        <td>{{ transaction.currency | upper }}</td>
+                                        <td>{{ transaction.amount }} {{ transaction.currency | upper }}</td>
+                                        <td>{{ transaction.created_at }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6"><a href="javascript: void(0);" class="text-body fw-bold">Nothing
+                                                to see here</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ./Received Transactions -->
+
+{% endblock content %}

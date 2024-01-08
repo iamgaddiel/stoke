@@ -1,0 +1,219 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Transfer</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'core:wallet' %}">Wallet</a></li>
+                    <li class="breadcrumb-item active">Transfer</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="float-end">
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-light" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"><i class="mdi mdi-wallet me-1"></i> <span
+                                class="d-none d-sm-inline-block">Wallet Balance <i
+                                    class="mdi mdi-chevron-down"></i></span></button>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-md">
+                            <div class="dropdown-item-text">
+                                <div>
+                                    <p class="text-muted mb-2">Available Balance</p>
+                                    <h5 class="mb-0">$ 9148.23</h5>
+                                </div>
+                            </div>
+
+                            <div class="dropdown-divider"></div>
+
+                            {% for object in object_list %}
+                            {% if object.currency == 'btc' %}
+                            <a class="dropdown-item" href="#">
+                                BTC : <span class="float-end">{{ object.balance }}</span>
+                            </a>
+                            {% elif object.currency == 'eth' %}
+                            <a class="dropdown-item" href="#">
+                                ETH : <span class="float-end">{{ object.balance }}</span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                LTC : <span class="float-end">{{ object.balance }}</span>
+                            </a>
+                            {% elif object.currency == 'ltc' %}
+                            <div class="dropdown-divider"></div>
+                            {% endif %}
+                            {% endfor %}
+                            <a class="dropdown-item text-primary text-center" href="#">
+                                Learn more
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="card-title mb-4">Transfer Crypto</h4>
+
+                <!-- Errros -->
+                {% if error %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ error }} 
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
+                {% if form.errors %}
+                {% for err in form.errors.items %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ err }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+                {% endif %}
+                <!-- ./Errors -->
+
+                <div class="crypto-buy-sell-nav">
+                    <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#buy" role="tab">
+                                Send
+                            </a>
+                        </li>
+                    </ul> 
+
+                    <div class="tab-content crypto-buy-sell-nav-content p-4">
+                        <!-- Send Crypto -->
+                        <div class="tab-pane active" id="buy" role="tabpanel">
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="mb-2">
+                                    <label>Currency :</label>
+
+                                    <div class="row">
+                                        {% for assets in wallets %}
+                                        {% if assets.currency == 'btc' %}
+                                        <div class="col-xl-2 col-sm-4">
+                                            <div class="mb-3">
+                                                <label class="card-radio-label mb-2">
+                                                    <input type="radio" name="currency" id="buycurrencyoption1"
+                                                        class="card-radio-input" value="btc" checked>
+
+                                                    <div class="card-radio">
+                                                        <div>
+                                                            <i class="mdi mdi-bitcoin font-size-24 text-warning align-middle me-2"></i>
+                                                            <span>Bitcoin</span>
+                                                        </div>
+                                                    </div>
+                                                </label>
+
+                                                <div>
+                                                    <p class="text-muted mb-1">Balance :</p>
+                                                    <h5 class="font-size-16">{{ assets.balance }} BTC</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% elif assets.currency == 'eth' %}
+                                        <div class="col-xl-2 col-sm-4">
+                                            <div class="mb-3">
+                                                <label class="card-radio-label mb-2">
+                                                    <input type="radio" name="currency" id="buycurrencyoption2"
+                                                        class="card-radio-input" value="eth">
+
+                                                    <div class="card-radio">
+                                                        <div>
+                                                            <i
+                                                                class="mdi mdi-ethereum font-size-24 text-primary align-middle me-2"></i>
+                                                            <span>Ethereum</span>
+                                                        </div>
+                                                    </div>
+                                                </label>
+
+                                                <div>
+                                                    <p class="text-muted mb-1">Balance :</p>
+                                                    <h5 class="font-size-16">{{ assets.balance }} ETH</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% elif assets.currency == 'ltc' %}
+                                        <div class="col-xl-2 col-sm-4">
+                                            <div class="mb-3">
+                                                <label class="card-radio-label mb-2">
+                                                    <input type="radio" name="currency" id="buycurrencyoption3"
+                                                        class="card-radio-input" value="ltc">
+
+                                                    <div class="card-radio">
+                                                        <div>
+                                                            <i
+                                                                class="mdi mdi-litecoin font-size-24 text-info align-middle me-2"></i>
+                                                            <span>litecoin</span>
+                                                        </div>
+                                                    </div>
+                                                </label>
+
+                                                <div>
+                                                    <p class="text-muted mb-1">Balance :</p>
+                                                    <h5 class="font-size-16">{{ assets.balance }} LTC</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <!-- Amount  -->
+                                <div class="mb-3">
+                                    <label>Add value :</label>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="input-group mb-2 currency-value">
+                                                <span class="input-group-text">Amount</span>
+
+                                                <input type="text" name="amount" class="form-control"
+                                                    placeholder="10,000" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="input-group mb-2">
+                                                <input type="text" class="form-control text-sm-end"
+                                                    placeholder="USD Amount" readonly >
+
+                                                <span class="input-group-text">USD Amount</span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Wallet Address -->
+                                <div class="mb-3">
+                                    <label>Wallet Address :</label>
+                                    <input type="text" name="address" class="form-control" placeholder="Wallet Address" required>
+                                </div>
+
+                                <div class="text-center mt-4">
+                                    <button type="submit" class="btn btn-success">Send</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+{% endblock %}
